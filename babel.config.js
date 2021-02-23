@@ -10,7 +10,8 @@ module.exports = function (api) {
         {
           root: ['.'],
           alias: {
-            src: path.resolve(__dirname, './src')
+            src: path.resolve(__dirname, './src'),
+            assets: path.resolve(__dirname, './assets')
           }
         }
       ]
