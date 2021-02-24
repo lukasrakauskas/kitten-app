@@ -27,8 +27,7 @@ export default function KittenListScreen() {
         directionalLockEnabled={true}
         horizontal={false}
         showsHorizontalScrollIndicator={false}
-        contentContainerStyle={{ paddingHorizontal: 16, width }}
-        style={styles.list}
+        contentContainerStyle={styles.contentContainer}
         data={kittens}
         renderItem={renderItem}
         keyExtractor={(item) => item.id}
@@ -41,10 +40,11 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: 'white',
-    alignItems: 'center',
-    paddingBottom: 16
+    alignItems: 'center'
   },
-  list: {
-    // marginVertical: 16
+  contentContainer: {
+    paddingHorizontal: 16,
+    width,
+    paddingBottom: 16
   }
 });
