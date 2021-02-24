@@ -1,7 +1,12 @@
 module.exports = {
-  parser: '@babel/eslint-parser',
+  parser: '@typescript-eslint/parser',
+  parserOptions: {
+    ecmaFeatures: {
+      jsx: true
+    }
+  },
   env: {
-    browser: true
+    'react-native/react-native': true
   },
   settings: {
     react: {
