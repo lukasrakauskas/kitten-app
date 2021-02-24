@@ -1,55 +1,22 @@
-import * as React from 'react';
-import { StyleSheet, View, FlatList } from 'react-native';
+import React, { useEffect } from 'react';
+import { Dimensions, FlatList, StyleSheet, View } from 'react-native';
+
+import { useAppDispatch, useAppSelector } from 'src/store';
+
 import KittenListing from '../components/KittenListing';
+import { KittenDTO } from '../kittenDto';
+import { fetchKittensByAmount, selectKittens } from '../kittenSlice';
 
-const CAT_NAMES = [
-  'Perseus',
-  'Quilstream',
-  'MrFuzzbutt',
-  'Butter',
-  'Gulliver',
-  'Ruby',
-  'Azurisz',
-  'Fred',
-  'Twinkle'
-];
-
-const random = () => CAT_NAMES[Math.floor(Math.random() * CAT_NAMES.length)];
-
-const listings: KittenDTO[] = [
-  {
-    id: 'a',
-    name: random(),
-    image: require('assets/tiny-home.jpg')
-  },
-  {
-    id: 'b',
-    name: random(),
-    image: require('assets/cook-house.jpg')
-  },
-  {
-    id: 'c',
-    name: random(),
-    image: require('assets/tiny-home.jpg')
-  },
-  {
-    id: 'd',
-    name: random(),
-    image: require('assets/cook-house.jpg')
-  },
-  {
-    id: 'e',
-    name: random(),
-    image: require('assets/tiny-home.jpg')
-  },
-  {
-    id: 'f',
-    name: random(),
-    image: require('assets/cook-house.jpg')
-  }
-];
+const { width } = Dimensions.get('window');
 
 export default function KittenListScreen() {
+  const kittens = useAppSelector(selectKittens);
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    dispatch(fetchKittensByAmount(3));
+  }, [dispatch]);
+
   const renderItem = ({ item }: { item: KittenDTO }) => (
     <KittenListing key={item.id} kitten={item} />
   );
@@ -57,9 +24,12 @@ export default function KittenListScreen() {
   return (
     <View style={styles.container}>
       <FlatList
-        contentContainerStyle={styles.list}
+        directionalLockEnabled={true}
+        horizontal={false}
+        showsHorizontalScrollIndicator={false}
+        contentContainerStyle={{ paddingHorizontal: 16, width }}
         style={styles.list}
-        data={listings}
+        data={kittens}
         renderItem={renderItem}
         keyExtractor={(item) => item.id}
       />
@@ -69,14 +39,12 @@ export default function KittenListScreen() {
 
 const styles = StyleSheet.create({
   container: {
-    margin: 0,
-    padding: 0,
     flex: 1,
     backgroundColor: 'white',
-    alignItems: 'center'
+    alignItems: 'center',
+    paddingBottom: 16
   },
   list: {
-    padding: 0,
-    margin: 0
+    // marginVertical: 16
   }
 });

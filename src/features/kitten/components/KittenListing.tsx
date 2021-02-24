@@ -3,6 +3,8 @@ import { Dimensions, Image, StyleSheet, Text, View } from 'react-native';
 import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
 import { useNavigation } from '@react-navigation/native';
 
+import { KittenDTO } from '../kittenDto';
+
 const { width } = Dimensions.get('window');
 
 interface ListingProps {
@@ -23,7 +25,7 @@ export default function KittenListing({ kitten }: ListingProps) {
           <Image
             style={styles.image}
             resizeMode="cover"
-            source={kitten.image}
+            source={{ uri: kitten.uri }}
           />
           <Text style={styles.title}>{kitten.name}</Text>
         </View>
@@ -34,13 +36,12 @@ export default function KittenListing({ kitten }: ListingProps) {
 
 const styles = StyleSheet.create({
   listing: {
-    margin: 16,
-    width: width
+    width
   },
   image: {
     height: 200,
     width: width - 32,
-    marginVertical: 8,
+    marginVertical: 16,
     borderRadius: 16
   },
   title: {
