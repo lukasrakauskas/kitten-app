@@ -9,6 +9,7 @@ import {
   View
 } from 'react-native';
 
+import useOnline from 'src/features/hooks/useOnline';
 import { useAppDispatch, useAppSelector } from 'src/store';
 
 import CustomAmountDialog from '../components/CustomAmountDialog';
@@ -23,6 +24,7 @@ export default function KittenListScreen() {
   const kittens = useAppSelector(selectKittens);
   const status = useAppSelector((state) => state.kitten.status);
   const dispatch = useAppDispatch();
+  const isOnline = useOnline();
 
   const [amount, setAmount] = useState(30);
   const [visible, setVisible] = useState(false);
@@ -62,16 +64,32 @@ export default function KittenListScreen() {
       <>
         <View style={styles.buttons}>
           <View style={[styles.buttonContainer, { marginRight: 8 }]}>
-            <Button title="30" onPress={() => setAmount(30)} />
+            <Button
+              title="30"
+              onPress={() => setAmount(30)}
+              disabled={!isOnline}
+            />
           </View>
           <View style={[styles.buttonContainer, { marginVertical: 8 }]}>
-            <Button title="50" onPress={() => setAmount(50)} />
+            <Button
+              title="50"
+              onPress={() => setAmount(50)}
+              disabled={!isOnline}
+            />
           </View>
           <View style={[styles.buttonContainer, { marginLeft: 8 }]}>
-            <Button title="100" onPress={() => setAmount(100)} />
+            <Button
+              title="100"
+              onPress={() => setAmount(100)}
+              disabled={!isOnline}
+            />
           </View>
         </View>
-        <Button title="Custom amount" onPress={handleOpen} />
+        <Button
+          title="Custom amount"
+          onPress={handleOpen}
+          disabled={!isOnline}
+        />
       </>
     );
   };

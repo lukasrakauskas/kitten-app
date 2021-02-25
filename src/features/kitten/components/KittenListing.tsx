@@ -3,6 +3,8 @@ import { Dimensions, Image, StyleSheet, Text, View } from 'react-native';
 import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
 import { useNavigation } from '@react-navigation/native';
 
+import useOnline from 'src/features/hooks/useOnline';
+
 import { KittenDTO } from '../kittenDto';
 
 const { width } = Dimensions.get('window');
@@ -13,9 +15,10 @@ interface ListingProps {
 
 export default function KittenListing({ kitten }: ListingProps) {
   const { navigate } = useNavigation();
+  const isOnline = useOnline();
 
   const handlePress = () => {
-    navigate('Kitten', { kitten });
+    if (isOnline) navigate('Kitten', { kitten });
   };
 
   return (

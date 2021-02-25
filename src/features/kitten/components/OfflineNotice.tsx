@@ -1,23 +1,14 @@
-import React, { PureComponent, useEffect, useState } from 'react';
-import { View, Text, Dimensions, StyleSheet } from 'react-native';
-import NetInfo from '@react-native-community/netinfo';
+import React from 'react';
+import { Dimensions, StyleSheet, Text, View } from 'react-native';
+
+import useOnline from 'src/features/hooks/useOnline';
 
 const { width } = Dimensions.get('window');
 
 export default function OfflineNotice() {
-  const [isConnected, setIsConnected] = useState(true);
+  const isOnline = useOnline();
 
-  useEffect(() => {
-    const unsubscribe = NetInfo.addEventListener((state) => {
-      setIsConnected(state.isConnected ?? false);
-    });
-
-    return () => {
-      unsubscribe();
-    };
-  }, [setIsConnected]);
-
-  if (isConnected) return null;
+  if (isOnline) return null;
 
   return (
     <View style={styles.offlineContainer}>
