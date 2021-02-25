@@ -42,7 +42,9 @@ const styles = StyleSheet.create({
     height: 200,
     width: width - 32,
     marginVertical: 16,
-    borderRadius: 16
+    borderRadius: 16,
+    overlayColor: 'white',
+    overflow: 'hidden'
   },
   title: {
     fontSize: 18
