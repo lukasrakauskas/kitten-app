@@ -4,6 +4,8 @@ import { RouteProp, useRoute } from '@react-navigation/native';
 
 import { RootStackParamList } from 'src/navigation';
 
+import CachedImage from '../components/CachedImage';
+
 const { width } = Dimensions.get('window');
 
 type KittenScreenRouteProp = RouteProp<RootStackParamList, 'Kitten'>;
@@ -14,7 +16,7 @@ export default function KittenScreen() {
 
   return (
     <View style={styles.container}>
-      <Image
+      <CachedImage
         style={styles.image}
         resizeMode="cover"
         source={{ uri: kitten.uri }}

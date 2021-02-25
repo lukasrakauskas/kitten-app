@@ -1,9 +1,10 @@
 import React from 'react';
-import { Dimensions, Image, StyleSheet, Text, View } from 'react-native';
+import { Dimensions, StyleSheet, Text, View } from 'react-native';
 import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
 import { useNavigation } from '@react-navigation/native';
 
 import useOnline from 'src/features/hooks/useOnline';
+import CachedImage from './CachedImage';
 
 import { KittenDTO } from '../kittenDto';
 
@@ -25,7 +26,7 @@ export default function KittenListing({ kitten }: ListingProps) {
     <View key={kitten.id} style={styles.listing}>
       <TouchableWithoutFeedback onPress={handlePress}>
         <View>
-          <Image
+          <CachedImage
             style={styles.image}
             resizeMode="cover"
             source={{ uri: kitten.uri }}
