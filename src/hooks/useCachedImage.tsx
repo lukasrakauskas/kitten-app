@@ -1,11 +1,11 @@
-import { useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { InteractionManager } from 'react-native';
 import * as Crypto from 'expo-crypto';
 import * as FileSystem from 'expo-file-system';
 
-export const isCachedImage = (uri: string) => uri.startsWith('file');
+export const isCachedImage = (uri: string): boolean => uri.startsWith('file');
 
-export default function useCachedImage(providedUri: string) {
+export default function useCachedImage(providedUri: string): string {
   const [uri, setUri] = useState('');
   const downloadResumable = useRef<FileSystem.DownloadResumable | null>(null);
   const mounted = useRef(false);
@@ -17,22 +17,7 @@ export default function useCachedImage(providedUri: string) {
     };
   });
 
-  useEffect(() => {
-    const interaction = InteractionManager.runAfterInteractions(async () => {
-      if (providedUri) {
-        const savedUri = await getImageFileSystemKey(providedUri);
-        if (providedUri !== uri || savedUri !== uri)
-          await loadImage(savedUri, providedUri);
-      }
-    });
-
-    return () => {
-      if (interaction) interaction.cancel();
-      checkClear();
-    };
-  }, [providedUri]);
-
-  const checkClear = async () => {
+  const checkClear = useCallback(async () => {
     try {
       if (downloadResumable) {
         const t = await downloadResumable.current?.pauseAsync();
@@ -45,7 +30,7 @@ export default function useCachedImage(providedUri: string) {
     } catch (error) {
       console.log(error);
     }
-  };
+  }, [providedUri]);
 
   const getImageFileSystemKey = async (remoteUri: string) => {
     const hashed = await Crypto.digestStringAsync(
@@ -55,7 +40,7 @@ export default function useCachedImage(providedUri: string) {
     return `${FileSystem.documentDirectory}${hashed}`;
   };
 
-  const loadImage = async (savedUri: string, remoteUri: string) => {
+  const loadImage = useCallback(async (savedUri: string, remoteUri: string) => {
     if (downloadResumable.current)
       downloadResumable.current._removeSubscription();
 
@@ -84,7 +69,22 @@ export default function useCachedImage(providedUri: string) {
       const metadata = await FileSystem.getInfoAsync(savedUri);
       if (metadata.exists) await FileSystem.deleteAsync(savedUri);
     }
-  };
+  }, []);
+
+  useEffect(() => {
+    const interaction = InteractionManager.runAfterInteractions(async () => {
+      if (providedUri) {
+        const savedUri = await getImageFileSystemKey(providedUri);
+        if (providedUri !== uri || savedUri !== uri)
+          await loadImage(savedUri, providedUri);
+      }
+    });
+
+    return () => {
+      if (interaction) interaction.cancel();
+      checkClear();
+    };
+  }, [checkClear, loadImage, providedUri, uri]);
 
   const onDownloadUpdate = (
     downloadProgress: FileSystem.DownloadProgressData

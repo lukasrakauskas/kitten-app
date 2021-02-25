@@ -20,7 +20,7 @@ import { fetchKittensByAmount, selectKittens } from '../kittenSlice';
 
 const { width } = Dimensions.get('window');
 
-export default function KittenListScreen() {
+export default function KittenListScreen(): JSX.Element {
   const kittens = useAppSelector(selectKittens);
   const status = useAppSelector((state) => state.kitten.status);
   const dispatch = useAppDispatch();

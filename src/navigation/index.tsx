@@ -13,7 +13,7 @@ export type RootStackParamList = {
   Kitten: { kitten: KittenDTO };
 };
 
-export default function Navigation() {
+export default function Navigation(): JSX.Element {
   return (
     <NavigationContainer linking={LinkingConfiguration}>
       <RootNavigator />

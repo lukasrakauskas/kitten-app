@@ -2,15 +2,14 @@ import React from 'react';
 import { Dimensions, Image, StyleSheet, Text, View } from 'react-native';
 import { RouteProp, useRoute } from '@react-navigation/native';
 
-import { RootStackParamList } from 'src/navigation';
-
 import useCachedImage from 'src/hooks/useCachedImage';
+import { RootStackParamList } from 'src/navigation';
 
 const { width } = Dimensions.get('window');
 
 type KittenScreenRouteProp = RouteProp<RootStackParamList, 'Kitten'>;
 
-export default function KittenScreen() {
+export default function KittenScreen(): JSX.Element {
   const { params } = useRoute<KittenScreenRouteProp>();
   const { kitten } = params;
 

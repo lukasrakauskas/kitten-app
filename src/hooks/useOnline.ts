@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import NetInfo from '@react-native-community/netinfo';
 
-export default function useOnline() {
+export default function useOnline(): boolean {
   const [isConnected, setIsConnected] = useState(true);
 
   useEffect(() => {

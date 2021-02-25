@@ -12,7 +12,7 @@ export default function CustomAmountDialog({
   visible,
   onSet,
   onClose
-}: CustomAmountDialogProps) {
+}: CustomAmountDialogProps): JSX.Element | null {
   const [amount, setAmount] = useState<number | null>(null);
 
   const handleSet = () => {

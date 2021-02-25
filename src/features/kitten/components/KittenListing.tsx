@@ -1,10 +1,10 @@
 import React, { memo } from 'react';
-import { Dimensions, StyleSheet, Text, View, Image } from 'react-native';
+import { Dimensions, Image, StyleSheet, Text, View } from 'react-native';
 import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
 import { useNavigation } from '@react-navigation/native';
 
-import useOnline from 'src/hooks/useOnline';
 import useCachedImage, { isCachedImage } from 'src/hooks/useCachedImage';
+import useOnline from 'src/hooks/useOnline';
 
 import { KittenDTO } from '../kittenDto';
 

@@ -5,7 +5,7 @@ import useOnline from 'src/hooks/useOnline';
 
 const { width } = Dimensions.get('window');
 
-export default function OfflineNotice() {
+export default function OfflineNotice(): JSX.Element | null {
   const isOnline = useOnline();
 
   if (isOnline) return null;

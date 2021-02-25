@@ -67,6 +67,7 @@ export const kittenSlice = createSlice({
   }
 });
 
-export const selectKittens = (state: RootState) => state.kitten.kittens;
+export const selectKittens = (state: RootState): KittenDTO[] =>
+  state.kitten.kittens;
 
 export default kittenSlice.reducer;
