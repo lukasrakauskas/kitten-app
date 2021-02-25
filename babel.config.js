@@ -9,6 +9,7 @@ module.exports = function (api) {
         'module-resolver',
         {
           root: ['.'],
+          extensions: ['.ts', '.tsx'],
           alias: {
             src: path.resolve(__dirname, './src'),
             assets: path.resolve(__dirname, './assets')
