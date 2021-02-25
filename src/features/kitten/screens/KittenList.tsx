@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import {
+  ActivityIndicator,
   Button,
   Dimensions,
   FlatList,
@@ -12,6 +13,7 @@ import { useAppDispatch, useAppSelector } from 'src/store';
 
 import CustomAmountDialog from '../components/CustomAmountDialog';
 import KittenListing from '../components/KittenListing';
+import OfflineNotice from '../components/OfflineNotice';
 import { KittenDTO } from '../kittenDto';
 import { fetchKittensByAmount, selectKittens } from '../kittenSlice';
 
@@ -49,6 +51,7 @@ export default function KittenListScreen() {
   if (status === 'pending') {
     return (
       <View style={styles.container}>
+        <ActivityIndicator size="large" />
         <Text>Loading kittens :3</Text>
       </View>
     );
@@ -75,6 +78,7 @@ export default function KittenListScreen() {
 
   return (
     <View style={styles.container}>
+      <OfflineNotice />
       <CustomAmountDialog
         visible={visible}
         onSet={handleSet}
