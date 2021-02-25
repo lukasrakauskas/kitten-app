@@ -1,15 +1,15 @@
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { configureStore, getDefaultMiddleware } from '@reduxjs/toolkit';
 import {
-  persistStore,
-  persistReducer,
   FLUSH,
-  REHYDRATE,
   PAUSE,
   PERSIST,
+  persistReducer,
+  persistStore,
   PURGE,
-  REGISTER
+  REGISTER,
+  REHYDRATE
 } from 'redux-persist';
 
 const persistConfig = {

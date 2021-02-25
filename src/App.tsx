@@ -4,7 +4,7 @@ import { registerRootComponent } from 'expo';
 import { StatusBar } from 'expo-status-bar';
 import { PersistGate } from 'redux-persist/integration/react';
 
-import { store, persistor } from './store/store';
+import { persistor, store } from './store/store';
 import Navigation from './navigation';
 
 export default function App() {
