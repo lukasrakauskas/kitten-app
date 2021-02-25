@@ -1,10 +1,10 @@
 import React, { memo } from 'react';
-import { Dimensions, StyleSheet, Text, View } from 'react-native';
+import { Dimensions, StyleSheet, Text, View, Image } from 'react-native';
 import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
 import { useNavigation } from '@react-navigation/native';
 
-import useOnline from 'src/features/hooks/useOnline';
-import CachedImage from './CachedImage';
+import useOnline from 'src/hooks/useOnline';
+import useCachedImage, { isCachedImage } from 'src/hooks/useCachedImage';
 
 import { KittenDTO } from '../kittenDto';
 
@@ -22,15 +22,17 @@ function KittenListing({ kitten }: ListingProps) {
     if (isOnline) navigate('Kitten', { kitten });
   };
 
+  const uri = useCachedImage(kitten.uri);
+
+  if (!isCachedImage(uri) && !isOnline) {
+    return null;
+  }
+
   return (
     <View key={kitten.id} style={styles.listing}>
       <TouchableWithoutFeedback onPress={handlePress}>
         <View>
-          <CachedImage
-            style={styles.image}
-            resizeMode="cover"
-            source={{ uri: kitten.uri }}
-          />
+          <Image style={styles.image} resizeMode="cover" source={{ uri }} />
           <Text style={styles.title}>{kitten.name}</Text>
         </View>
       </TouchableWithoutFeedback>
@@ -38,7 +40,6 @@ function KittenListing({ kitten }: ListingProps) {
   );
 }
 export default memo(KittenListing);
-
 
 const styles = StyleSheet.create({
   listing: {

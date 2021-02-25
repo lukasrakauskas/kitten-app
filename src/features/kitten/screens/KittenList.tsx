@@ -9,7 +9,7 @@ import {
   View
 } from 'react-native';
 
-import useOnline from 'src/features/hooks/useOnline';
+import useOnline from 'src/hooks/useOnline';
 import { useAppDispatch, useAppSelector } from 'src/store';
 
 import CustomAmountDialog from '../components/CustomAmountDialog';

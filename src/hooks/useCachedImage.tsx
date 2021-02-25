@@ -1,30 +1,14 @@
-import React, { useEffect, useRef, useState } from 'react';
-import {
-  Image,
-  ImageProps,
-  ImageSourcePropType,
-  ImageURISource,
-  InteractionManager
-} from 'react-native';
+import { useEffect, useRef, useState } from 'react';
+import { InteractionManager } from 'react-native';
 import * as Crypto from 'expo-crypto';
 import * as FileSystem from 'expo-file-system';
 
-const isImageURISource = (
-  source: ImageSourcePropType
-): source is ImageURISource => {
-  return !Array.isArray(source) && typeof source !== 'number';
-};
+export const isCachedImage = (uri: string) => uri.startsWith('file');
 
-export default function CachedImage(props: ImageProps) {
+export default function useCachedImage(providedUri: string) {
   const [uri, setUri] = useState('');
   const downloadResumable = useRef<FileSystem.DownloadResumable | null>(null);
   const mounted = useRef(false);
-
-  if (!isImageURISource(props.source))
-    throw new Error('source prop must be ImageURISource with defined uri');
-
-  const providedSource = props.source as ImageURISource;
-  const providedUri = providedSource.uri ?? '';
 
   useEffect(() => {
     mounted.current = true;
@@ -115,7 +99,5 @@ export default function CachedImage(props: ImageProps) {
     }
   };
 
-  let source: ImageURISource | null = uri ? { uri } : null;
-  if (!source) source = { ...props.source, cache: 'force-cache' };
-  return <Image {...props} source={source} />;
+  return uri ? uri : providedUri;
 }

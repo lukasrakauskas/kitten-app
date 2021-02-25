@@ -1,7 +1,7 @@
 import React from 'react';
 import { Dimensions, StyleSheet, Text, View } from 'react-native';
 
-import useOnline from 'src/features/hooks/useOnline';
+import useOnline from 'src/hooks/useOnline';
 
 const { width } = Dimensions.get('window');
 
