@@ -62,6 +62,7 @@ export const kittenSlice = createSlice({
     );
     builder.addCase(fetchKittensByAmount.rejected, (state) => {
       state.error = 'failed to fetch kittens';
+      state.status = 'error';
     });
   }
 });
