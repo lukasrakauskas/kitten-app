@@ -1,16 +1,19 @@
-import * as React from 'react';
+import React from 'react';
 import { Provider } from 'react-redux';
 import { registerRootComponent } from 'expo';
 import { StatusBar } from 'expo-status-bar';
+import { PersistGate } from 'redux-persist/integration/react';
 
-import store from './store/store';
+import { store, persistor } from './store/store';
 import Navigation from './navigation';
 
 export default function App() {
   return (
     <Provider store={store}>
-      <Navigation />
-      <StatusBar style="auto" />
+      <PersistGate loading={null} persistor={persistor}>
+        <Navigation />
+        <StatusBar style="auto" />
+      </PersistGate>
     </Provider>
   );
 }

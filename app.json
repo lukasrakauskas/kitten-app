@@ -24,7 +24,8 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
-      }
+      },
+      "package": "lt.rksk.kitten.app"
     },
     "web": {
       "favicon": "./assets/favicon.png"
