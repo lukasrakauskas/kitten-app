@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import { Dimensions, StyleSheet, Text, View } from 'react-native';
 import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
 import { useNavigation } from '@react-navigation/native';
@@ -14,7 +14,7 @@ interface ListingProps {
   kitten: KittenDTO;
 }
 
-export default function KittenListing({ kitten }: ListingProps) {
+function KittenListing({ kitten }: ListingProps) {
   const { navigate } = useNavigation();
   const isOnline = useOnline();
 
@@ -37,6 +37,8 @@ export default function KittenListing({ kitten }: ListingProps) {
     </View>
   );
 }
+export default memo(KittenListing);
+
 
 const styles = StyleSheet.create({
   listing: {
