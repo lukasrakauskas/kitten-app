@@ -1,5 +1,7 @@
 # Kitten app 🐱
 
+An app to view images of kittens
+
 ## Prerequisites 📚
 
 Make sure you have installed all of the following prerequisites on your development machine:
@@ -23,9 +25,15 @@ Make sure you have installed all of the following prerequisites on your developm
 - `npm run lint` to lint the source code.
 - `npm run format` to format the source code.
 
+## Building standalone binaries 💾
+
+The project is using Expo, therefore to build the application we can:
+- use [Expo services](https://docs.expo.io/distribution/building-standalone-apps/)
+- use [Turtle CLI](https://docs.expo.io/distribution/turtle-cli/#install-turtle-cli) to build locally
+
 ## Notice 📌
 
 - 2.2 ... using placekitten.com API (30/50/100).
   - It's not an API. It's a service for web designers to use while developing mockups without having placeholder images. Thus, I've used a REST API https://cataas.com.
 - 3.5 When all data is fetched for the first time store data in AsyncStorage, to allow the user to review kittens when offline
-  - This point is inherently wrong because AsyncStorge is key-value string storage and it is wrong to use it for caching images. Therefore I've used a redux persist with AsyncStorage for persisting state and a custom solution for caching image files and linking them with their URLs. Although it is not fully complete, it is working.
+  - This point is wrong because AsyncStorge is key-value string storage and it is wrong to use it for caching images. Therefore I've used a redux persist with AsyncStorage for persisting state and a custom solution for caching image files and linking them with their URLs. Although it is not fully complete, it is working.
